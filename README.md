@@ -20,12 +20,16 @@ Instalación 🔧.
 
 
 npm / yarn install para instalar las librerias necesarias para ejecutar el proyecto.
+
+
 Comenzando 🚀. 
 
 
 Para poder iniciar el presente proyecto debe ejectuar : npm / yarn start.
 
 Ejecutando las pruebas ⚙
+
+
 Pruebas unitarias: npm run test
 
 Construido con 🛠️. 
