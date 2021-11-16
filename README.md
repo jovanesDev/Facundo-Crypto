@@ -1,4 +1,4 @@
-## Cripto
+# Cripto
 
 Aplicación para comprar, vender y convertir criptomonedas.
 
