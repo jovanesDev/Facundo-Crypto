@@ -1,20 +1,23 @@
-import React from 'react'
-import { useLocation } from 'react-router'
-import Navbar from '../Navbar/Navbar'
-import Spinner from '../Spinner/Spinner';
+import React from "react";
 
-const Layout = ({ children }) => {
+import { Outlet } from "react-router-dom";
+import Footer from "../Footer/Footer";
+import Navbar from "../Navbar/Navbar";
+import Spinner from "../Spinner/Spinner";
 
-    const {pathname} = useLocation();
+const Layout = ({ rutas, children }) => {
+  let user = localStorage.getItem("user");
+  
 
+  return (
+    <div>
+      {/* <Spinner/> */}
+      <Navbar user={user} />
+      {rutas && <Outlet />}
+      {!rutas && children}
+      <Footer />
+    </div>
+  );
+};
 
-    return (
-        <div>
-            {/* {(pathname === '/' || pathname === '/mercado' || pathname === '/movimientos' || pathname === '/login') && <Spinner />} */}
-            {(pathname === '/' || pathname === '/mercado' || pathname === '/movimientos' || pathname === '/login') && <Navbar/> }
-            { children }
-        </div>
-    )
-}
-
-export default Layout
+export default Layout;

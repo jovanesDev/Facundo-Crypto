@@ -5,19 +5,22 @@ import Home from "../views/Home";
 import Login from "../views/Login";
 import Mercado from "../views/Mercado";
 import Movimientos from "../views/Movimientos";
+import Registro from "../views/Registro";
+import PrivateRoute from "./PrivateRoute";
 
 const Rutas = () => {
   return (
     <Router>
-      <Layout>
-        <Routes>
-          <Route path="/login" index element={<Login />} />
-          <Route path="/" index element={<Home />} />
-          <Route path="/movimientos" index element={<Movimientos />} />
-          <Route path="/mercado" index element={<Mercado />} />
-          <Route path="*" element={<Error />} />
-        </Routes>
-      </Layout>
+      <Routes>
+        <Route path="*" element={<Error />} />
+        <Route path="registro" element={<Registro />} />
+        <Route path="login" element={<Login />} />
+        <Route path="mercado" element={<Mercado />} />
+        <Route path="/" element={<PrivateRoute component={<Layout rutas="true"/>}  />}>
+          <Route path="home" element={<Home />} />
+          <Route path="movimientos" element={<Movimientos />} />
+        </Route>
+      </Routes>
     </Router>
   );
 };
