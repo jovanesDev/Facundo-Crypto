@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { auth } from '../services/firebase';
 import {createUserWithEmailAndPassword } from 'firebase/auth';
 import { GlobalConsumer } from '../Context/User/GlobalProvider';
+
 const useAuth = () => {
 
     const {showSpinner, hideSpinner} = GlobalConsumer();

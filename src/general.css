@@ -56,12 +56,60 @@
   justify-content: center;
   width: 50px;
   height: 50px;
+  text-align: center;
 }
 
 .wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.home_wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 90vh;
+}
+
+.user_side{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 100px;
+  height: 20vh;
+}
+
+.user_table{
+  border-bottom: 1px solid black;
+  margin: 10px;
+  width: 500px;
+  height: 250px;
+  text-align: center;
+}
+
+.user_table_item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 50px
+}
+
+.style_data{
+  text-decoration: none;
+  color: black;
+  border: 1px solid lightgray;
+  padding: 5px;
+  border-radius: 4px;
+  background-color: lightgrey;
+  transition:all 0.2s ease-in-out ;
+}
+
+.style_data:hover{
+  transition:all 0.2s ease-in-out ;
+  color: white;
+  background-color: black;
 }
 
 
@@ -89,6 +137,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    justify-content: center;
   }
 
   .table thead tbody tr th td {

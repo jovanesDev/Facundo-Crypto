@@ -1,9 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { AuthConsumer } from "../../Context/Auth/AuthProvider";
+import { AuthConsumer } from "../Context/Auth/AuthProvider";
+import { checkfilledIsEmpty, existUser, userName } from "../helper";
 
-const FormRegister = () => {
+
+const Profile = () => {
+  const { user, updateUser } = AuthConsumer();
+  const {name, lastName} =  userName( user && user.displayName);
   const {
     register,
     handleSubmit,
@@ -12,24 +15,15 @@ const FormRegister = () => {
     formState: { errors },
   } = useForm({
     mode: "onBlur",
+    defaultValues:{ name , lastName  , email: existUser(user, 'email')}
   });
 
-  const { userRegister, user } = AuthConsumer();
-  const correctPass = watch("password", "");
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (user) {
-      navigate("/home");
-    }
-  }, [user]);
-
-  const registerUser = (data) => {
-    const { name, lastName, email, password } = data;
-    userRegister({ name, lastName, email, password });
-    reset();
-  };
+  const handleUpdateSubmit = ( data ) =>{
+    updateUser(data);
+    // console.log(checkfilledIsEmpty(password) ? 'No se va a cambiar el password ' : 'Si se va a cambiar');
+  }
   return (
-    <form className="my-5 w-50 mx-auto" onSubmit={handleSubmit(registerUser)}>
+    <form className="my-5 w-50 mx-auto" onSubmit={handleSubmit(handleUpdateSubmit)}>
       <div className="form-group">
         <label for="exampleInputEmail1">Name</label>
         <input
@@ -81,39 +75,15 @@ const FormRegister = () => {
           type="password"
           className={`form-control ${errors.password && "is-invalid"}`}
           placeholder="Password"
-          {...register("password", { required: true })}
+          {...register("password")}
         />
-        {errors.password && (
-          <small id="emailHelp" className="form-text text-danger">
-            Password is required
-          </small>
-        )}
       </div>
-      <div className="form-group mt-3">
-        <label for="exampleInputPassword1"> Repeat Password</label>
-        <input
-          type="password"
-          className={`form-control ${errors.repeatPass && "is-invalid"}`}
-          placeholder="Password"
-          {...register("repeatPass", {
-            required: true,
-            validate: (value) => value === correctPass,
-          })}
-        />
-        {errors.repeatPass && (
-          <small id="emailHelp" className="form-text text-danger">
-            Password incorrect
-          </small>
-        )}
-      </div>
+
       <button type="submit" className="btn btn-primary w-100 my-4">
-        Submit
+        Update Profile
       </button>
-      <p>
-        Are you registered <Link to="/">Click here! </Link>
-      </p>
     </form>
   );
 };
 
-export default FormRegister;
+export default Profile;

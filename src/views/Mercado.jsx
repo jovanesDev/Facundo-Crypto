@@ -1,19 +1,25 @@
-import React from "react";
-import btc from '../assets/img/btc.png'
-import eth from '../assets/img/eth.png'
-import ada from '../assets/img/ada.png'
+import React, { useEffect } from "react";
 import '../general.css'
+import useCriptoPrice from "../hooks/useCriptoPrice";
 
 
 const Mercado = () => {
 
+
+  const {btcState, ethState, adaState, setActualizado,actualizado,  getValues} = useCriptoPrice();
+
+  useEffect(() => {
+    setTimeout(() => {
+        getValues();
+        setActualizado(false);
+    }, 5000);
+ }, [actualizado])
   return (
-    <div className="marketWrapper">
-      <table className='table table-light'>
+    <div>
+      <table className='table table-light text-center'>
         <thead>
           <tr>
             <th scope="col">Name</th>
-            <th scope="col">Symbol</th>
             <th scope="col">Value</th>
             <th scope="col">Balance</th>
           </tr>
@@ -21,20 +27,18 @@ const Mercado = () => {
         <tbody>
           <tr>
             <th scope="row">Bitcoin</th>
-            <th scope="row"><img src={btc} alt='Bitcoin'  className="cripto"/></th>
-            <td>U$D 60000</td>
+            <td>{btcState}</td>
             <td>%1200000</td>
           </tr>
           <tr>
             <th scope="row">Ethereum</th>
-            <th scope="row"><img src={eth} alt='Ethereum'  className="cripto"/></th>
-            <td>U$D 60000</td>
+         
+            <td>{ethState}</td>
             <td>%1200000</td>
           </tr>
           <tr>
-            <th scope="row">Cardano</th>
-            <th scope="row"><img src={ada} alt='Cardano'  className="cripto"/></th>
-            <td>U$D 3</td>
+          <th scope="row">Cardano</th>
+            <td>{adaState}</td>
             <td>%1200000</td>
           </tr>
         </tbody>

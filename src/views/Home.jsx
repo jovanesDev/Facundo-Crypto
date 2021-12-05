@@ -1,22 +1,63 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import { AuthConsumer } from '../Context/Auth/AuthProvider';
+import { NavLink } from 'react-router-dom';
 
+
+import btc from '../assets/img/btc.png';
+import eth from '../assets/img/eth.png';
+import ada from '../assets/img/ada.png'
+
+import '../../src/general.css'
+import { retornarValor } from '../helper';
+import useCriptoPrice from '../hooks/useCriptoPrice'
 
 
 const Home = () => {
-    let btc = new WebSocket('wss://stream.binance.com:9443/ws/etheur@trade');
-    btc.onmessage = (e) =>{
-        let stockOBJ = JSON.parse(e.data);
-        console.log(parseFloat(stockOBJ.p).toFixed(2))
-    }
+    
+    const {btcState, ethState, adaState, setActualizado,actualizado,  getValues} = useCriptoPrice();
+
+   const { user } = AuthConsumer();
+
+    useEffect(() => {
+       setTimeout(() => {
+           getValues();
+           setActualizado(false);
+       }, 5000);
+    }, [actualizado])
     return (
-        <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems:'center',
-            height: '90vh'
-        }}>
-                <h1>Soy Home</h1>
+        <div className='home_wrapper'>
+
+        <div className='user_side'>
+            <img src={eth} alt='eth' className='cripto' / >
+           <NavLink className='style_data' to='/profile'>Update data</NavLink> 
         </div>
+        
+
+       <table className='user_table'>
+           <tr className='user_table_item'>
+               <img src={btc} alt='btc' className='cripto' / >
+               <td>Cripto</td> 
+               <td>  {btcState}</td>
+               <button className='btn btn-outline-dark'>Buy</button>
+               <button className='btn btn-outline-danger'>Sell</button>
+           </tr>
+           <tr className='user_table_item'>
+              <img src={eth} alt='eth' className='cripto' / >
+               <td>Cripto</td>
+               <td> {ethState}</td>
+               <button className='btn btn-outline-dark'>Buy</button>
+               <button className='btn btn-outline-danger'>Sell</button>
+           </tr>
+           <tr className='user_table_item'>
+              <img src={ada} alt='ada' className='cripto' / >
+               <td>Cripto</td>
+               <td>  {adaState}</td>
+               <button className='btn btn-outline-dark'>Buy</button>
+               <button className='btn btn-outline-danger'>Sell</button>
+           </tr>
+       </table>
+
+      </div>
     )
 }
 

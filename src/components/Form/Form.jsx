@@ -21,7 +21,6 @@ const Form = () => {
 
   useEffect(() => {
     if (user) {
-      console.log(user);
       navigate("/home");
     }
   }, [user]);
