@@ -1,33 +1,62 @@
 import React, {  useState } from 'react'
-import axios from 'axios'
+
 
 const useCriptoPrice = () => {
 
-    const getValues = async() => {
-        let btcValue = await axios.get('https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC&tsyms=EUR') ;
-        setBtcState(btcValue.data.DISPLAY['BTC']['EUR']['PRICE']);
-        let ethValue = await axios.get('https://min-api.cryptocompare.com/data/pricemultifull?fsyms=ETH&tsyms=EUR');
-        setEthState(ethValue.data.DISPLAY['ETH']['EUR']['PRICE']);
-        let adaValue = await axios.get('https://min-api.cryptocompare.com/data/pricemultifull?fsyms=ADA&tsyms=EUR');
-        setAdaState(adaValue.data.DISPLAY['ADA']['EUR']['PRICE']);
-
-        setActualizado(true);
-    }
-
-    const [btcState, setBtcState] = useState('--');
-    const [ethState, setEthState] = useState('--');
-    const [adaState, setAdaState] = useState('--');
-    const [actualizado, setActualizado] = useState(false);
-   
     
-  
+    let ethCoin  = new WebSocket('wss://stream.binance.com:9443/ws/etheur@trade');
+    let btcCoin = new WebSocket('wss://stream.binance.com:9443/ws/btceur@trade');
+    let adaCoin = new WebSocket('wss://stream.binance.com:9443/ws/adaeur@trade');
+    const [btcState, setBtcState] = useState(null);
+    const [ethState, setEthState] = useState(null);
+    const [adaState, setAdaState] = useState(null);
+    
+
+   
+        
+            ethCoin.onmessage = (e) => {
+                let stockOBJ = JSON.parse(e.data);
+                console.log({e});
+                let price = parseFloat(stockOBJ.p).toFixed(2);
+                setEthState(price)
+                
+                
+    
+            }
+            btcCoin.onmessage = (e) => {
+                let stockOBJ1 = JSON.parse(e.data);
+                let price = parseFloat(stockOBJ1.p).toFixed(2);
+                setBtcState(price)
+                
+                
+            }
+
+            adaCoin.onmessage = (e) => {
+                let stockOBJ2 = JSON.parse(e.data);
+                let price = parseFloat(stockOBJ2.p).toFixed(2);
+                setAdaState(price)
+                
+                
+            }
+
+      
+       
+
+
+     
+
+
+
+    
+    
+
     return{
         btcState,
         ethState,
         adaState,
-        setActualizado,
-        actualizado,
-        getValues
+       
+        
+
     }
 }
 

@@ -34,3 +34,20 @@ export const retornarValor = (e) => {
     let valorCriptoDec = parseFloat(valorCripto.p).toFixed(2);
     return valorCriptoDec;
 }
+
+export const savedSessionStorage = (arr) => {
+    arr.map((elemento) => {
+        elemento.value && JSON.stringify(sessionStorage.setItem(elemento.key, elemento.value))
+    });
+}
+
+
+export const highLow = (valorActual, valorAchequear) => {
+        let claseRetornado;
+        let valorObtenido = sessionStorage.getItem(valorAchequear);
+
+        // valorObtenido && valorActual > valorObtenido ? claseRetornado = 'text-success' : claseRetornado = 'text-danger'
+        console.log('esto es highlow', parseFloat(valorObtenido).toFixed(2))
+        // return claseRetornado;
+
+}

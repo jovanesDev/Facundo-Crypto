@@ -14,16 +14,11 @@ import useCriptoPrice from '../hooks/useCriptoPrice'
 
 const Home = () => {
     
-    const {btcState, ethState, adaState, setActualizado,actualizado,  getValues} = useCriptoPrice();
+    const {btcState, ethState, adaState} = useCriptoPrice();
 
    const { user } = AuthConsumer();
 
-    useEffect(() => {
-       setTimeout(() => {
-           getValues();
-           setActualizado(false);
-       }, 5000);
-    }, [actualizado])
+
     return (
         <div className='home_wrapper'>
 
