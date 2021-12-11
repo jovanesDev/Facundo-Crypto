@@ -8,6 +8,7 @@ import {
   NavBtnLink,
 } from "./NavBarElements";
 
+import 'bootswatch/dist/lux/bootstrap.min.css'
 import btc from "../../assets/img/btc.png";
 import { AuthConsumer } from "../../Context/Auth/AuthProvider";
 
@@ -16,7 +17,7 @@ const Navbar = () => {
 
   return (
     <>
-      <Nav>
+      <Nav className='class="navbar navbar-expand-lg navbar-dark bg-dark"'>
         <>
           <NavLink to={user ? "/home" : "/login"}>
             <img src={btc} alt="logo" className="cripto" />
@@ -35,7 +36,10 @@ const Navbar = () => {
                 <NavLink to="/movimientos" activeStyle>
                   Movements
                 </NavLink>
-                <button className="btn btn-outline-light m-5 " onClick={logout}>
+                <NavLink to="/user" activeStyle>
+                  User
+                </NavLink>
+                <button className="btn_logout" onClick={logout}>
                   Logout
                 </button>
               </>
@@ -57,3 +61,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+

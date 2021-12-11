@@ -10,7 +10,7 @@ export const UserConsumer = () => useContext(UserContext); // Creamos el consumi
 const UserProvider = ({ children }) => {
   const { user } = AuthConsumer();
   const [wallet, setWallet] = useState(null); // lo que proveemos
-//   console.log(user);
+  const [movimientos, setMovimientos ] = useState([]);
 
   const getWallet = async () => {
     const q = query(collection(db, "wallets"), where("id", "==", user.uid));
@@ -19,19 +19,45 @@ const UserProvider = ({ children }) => {
       setWallet(doc.data());
     });
   };
+  
+const comprarCriptoMoneda = (data) =>{
+  const { id,operacion,date, cripto, cantidad } = data;
+  
+  // let nuevoPrecio = (cripto === 'eth') ? (parseInt(cantidad) + parseInt(wallet.Eth) ) : cripto === 'btc' ? (parseInt(cantidad) + Number(wallet.Btc)) : (cantidad + Number(wallet.Ada))
+  // console.log(nuevoPrecio);
+  let nuevoPrecio;
+  if(cripto === 'eth'){
+    nuevoPrecio = cantidad + wallet.Etc;
+  }else if( cripto === 'btc'){
+    nuevoPrecio = cantidad + wallet.Btc
+  }else{
+    nuevoPrecio = cantidad + wallet.Ada
+  }
+  console.log(nuevoPrecio);
+
+}
+
+  // const {showSpinner, hideSpinner} = GlobalConsumer(); // me traigo el global consumer para consumir lo que provee el global provider
+  const getMovimientos = async() =>{
+    const m = query(collection(db, "movimientos"), where("usuario", "==", user.uid));
+    const result = await getDocs(m);
+    result.forEach((doc) => {
+      doc = {id: doc.id, ...doc.data()}
+      setMovimientos([...movimientos, doc]);
+    });
+  }
   useEffect(() => {
     if (user) {
       getWallet();
+      getMovimientos();
     }
     return () => {
       setWallet(null);
+      setMovimientos([]);
     };
   }, [!user]);
-
-  // const {showSpinner, hideSpinner} = GlobalConsumer(); // me traigo el global consumer para consumir lo que provee el global provider
-
   return (
-    <UserContext.Provider value={{ wallet }}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ wallet , movimientos, comprarCriptoMoneda }} >{children}</UserContext.Provider>
   );
 };
 

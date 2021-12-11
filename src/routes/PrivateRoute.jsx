@@ -6,7 +6,7 @@ import { AuthConsumer } from '../Context/Auth/AuthProvider';
 
 const PrivateRoute = ({component}) => {
     const {user} = AuthConsumer();
-    console.log(user);
+    
     const navigate = useNavigate();
     useEffect(() => {
        if(!user){

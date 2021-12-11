@@ -67,7 +67,6 @@ const AuthContext = ({ children }) => {
 
   const updateUser = async( data ) => {
     const {name,lastName, email, password} = data;
-      console.log(user);
       showSpinner();
 
       try {
@@ -81,7 +80,6 @@ const AuthContext = ({ children }) => {
         // setUser();
         hideSpinner()
       } catch (error) {
-        console.log(error);
         hideSpinner();
       }
   }

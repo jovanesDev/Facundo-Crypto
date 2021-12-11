@@ -59,6 +59,39 @@
   text-align: center;
 }
 
+.user_profile{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  height: 90vh;
+  text-align: center;
+  
+}
+
+.avatar{
+  width: 80px;
+  height: 80px;
+  
+}
+
+.btn_logout{
+  margin-right: 20px;
+  background-color: #234567;
+  padding: 10px;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn_logout:hover{
+  background: #53a7ea;
+}
+
+
+
+
+
 .wrapper {
   display: flex;
   justify-content: center;

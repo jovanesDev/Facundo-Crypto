@@ -1,63 +1,37 @@
-import React, {  useState } from 'react'
+import React, { useState } from "react";
+import axios from "axios";
 
+const useCriptoPrice =  () => {
+  const getPrice = async () => {
+    setActualizado(true);
+    let ethCoin = await axios.get(
+      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&ids=ethereum&order=market_cap_desc&per_page=1&page=1&sparkline=false&price_change_percentage=1h"
+    );
+    setEthState(ethCoin.data[0]);
+    let btcCoin = await axios.get(
+      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&ids=bitcoin&order=market_cap_desc&per_page=1&page=1&sparkline=false&price_change_percentage=1h"
+    );
+    setBtcState(btcCoin.data[0]);
+    let adaCoin = await axios.get(
+      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&ids=cardano&order=market_cap_desc&per_page=1&page=1&sparkline=false&price_change_percentage=1h"
+    );
+    setAdaState(adaCoin.data[0]);
+    setActualizado(false);
 
-const useCriptoPrice = () => {
+  };
 
-    
-    let ethCoin  = new WebSocket('wss://stream.binance.com:9443/ws/etheur@trade');
-    let btcCoin = new WebSocket('wss://stream.binance.com:9443/ws/btceur@trade');
-    let adaCoin = new WebSocket('wss://stream.binance.com:9443/ws/adaeur@trade');
-    const [btcState, setBtcState] = useState(null);
-    const [ethState, setEthState] = useState(null);
-    const [adaState, setAdaState] = useState(null);
-    
+  const [btcState, setBtcState] = useState(null);
+  const [ethState, setEthState] = useState(null);
+  const [adaState, setAdaState] = useState(null);
+  const [actualizado, setActualizado] = useState(false);
 
-   
-        
-            ethCoin.onmessage = (e) => {
-                let stockOBJ = JSON.parse(e.data);
-                console.log({e});
-                let price = parseFloat(stockOBJ.p).toFixed(2);
-                setEthState(price)
-                
-                
-    
-            }
-            btcCoin.onmessage = (e) => {
-                let stockOBJ1 = JSON.parse(e.data);
-                let price = parseFloat(stockOBJ1.p).toFixed(2);
-                setBtcState(price)
-                
-                
-            }
+  return {
+    btcState,
+    ethState,
+    adaState,
+    actualizado,
+    getPrice,
+  };
+};
 
-            adaCoin.onmessage = (e) => {
-                let stockOBJ2 = JSON.parse(e.data);
-                let price = parseFloat(stockOBJ2.p).toFixed(2);
-                setAdaState(price)
-                
-                
-            }
-
-      
-       
-
-
-     
-
-
-
-    
-    
-
-    return{
-        btcState,
-        ethState,
-        adaState,
-       
-        
-
-    }
-}
-
-export default useCriptoPrice
+export default useCriptoPrice;

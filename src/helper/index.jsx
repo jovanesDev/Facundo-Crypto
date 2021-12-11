@@ -42,12 +42,38 @@ export const savedSessionStorage = (arr) => {
 }
 
 
-export const highLow = (valorActual, valorAchequear) => {
-        let claseRetornado;
-        let valorObtenido = sessionStorage.getItem(valorAchequear);
+export const highLow = ( valor ) => {
 
-        // valorObtenido && valorActual > valorObtenido ? claseRetornado = 'text-success' : claseRetornado = 'text-danger'
-        console.log('esto es highlow', parseFloat(valorObtenido).toFixed(2))
-        // return claseRetornado;
+        // if(valor > 0){
+        //     return 'text-success'
+        // } else if (valor === 0){
+        //     return 'text-dark'
+        // }else {
+        //     return 'text-danger'
+        // }
+        if(!valor){
+            return '';
+        } else if(valor.price_change_percentage_1h_in_currency > 0){
+            return 'text-success'
+        } else if(valor.price_change_percentage_1h_in_currency === 0){
+            return 'text-dark'
+        }else {
+            return 'text-danger'
+        }
 
+}
+
+export const precioPorcentaje = (porcentaje) => {
+    return parseFloat(porcentaje).toFixed(2);
+}
+
+export const currentPrice = (coin, arr) =>{
+    return arr.find(e => e.key === coin).value.current_price;
+}
+export const currentBalance = (coin, arr) =>{
+    return arr.find(e => e.key === coin).value;
+}
+
+export const suma = (cantidad, precio) => {
+    return cantidad * precio;
 }

@@ -9,8 +9,6 @@ import Navbar from "../Navbar/Navbar";
 
 const Layout = ({ rutas, children }) => {
   const {user} = AuthConsumer();
-  
-
 
   return (
     <div>
