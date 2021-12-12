@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Spinner from "../components/Spinner/Spinner";
 import "../general.css";
-import { savedSessionStorage, highLow, precioPorcentaje } from "../helper";
+import { highLow, precioPorcentaje } from "../helper";
 import useCriptoPrice from "../hooks/useCriptoPrice";
 
 const Mercado = () => {
@@ -13,8 +13,8 @@ const Mercado = () => {
       
       await getPrice();
     }, 8000);
+    // eslint-disable-next-line
   }, [actualizado]);
-  console.log(btcState);
 
   return (
     <div>

@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react'
+import { useEffect} from 'react'
 import { useNavigate } from 'react-router'
 import { AuthConsumer } from '../Context/Auth/AuthProvider';
 
@@ -13,6 +13,7 @@ const PrivateRoute = ({component}) => {
 
         navigate('/login')
     }
+    // eslint-disable-next-line
     }, [user])
     
 

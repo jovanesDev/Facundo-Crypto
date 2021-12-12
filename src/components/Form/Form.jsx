@@ -23,12 +23,13 @@ const Form = () => {
     if (user) {
       navigate("/home");
     }
+    // eslint-disable-next-line
   }, [user]);
 
   return (
     <form className="my-5 w-50 mx-auto" onSubmit={handleSubmit(loguearUsario)}>
       <div className="form-group">
-        <label for="exampleInputEmail1">Email address</label>
+        <label htmlFor="exampleInputEmail1">Email address</label>
         <input
           type="email"
           className={`form-control ${errors.email && "is-invalid"}`}
@@ -43,7 +44,7 @@ const Form = () => {
         )}
       </div>
       <div className="form-group mt-3">
-        <label for="exampleInputPassword1">Password</label>
+        <label htmlFor="exampleInputPassword1">Password</label>
         <input
           type="password"
           className={`form-control ${errors.password && "is-invalid"}`}

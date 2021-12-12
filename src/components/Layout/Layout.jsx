@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-
 import { Outlet } from "react-router-dom";
 import { AuthConsumer } from "../../Context/Auth/AuthProvider";
 import Footer from "../Footer/Footer";

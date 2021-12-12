@@ -21,7 +21,7 @@ const stripePromise = loadStripe(
 );
 
 const CheckoutForm = () => {
-  const [operation, setOperation] = useState("sell");
+  const [operation, setOperation] = useState("buy");
   const { coin } = useParams();
   const { wallet } = UserConsumer();
 
@@ -37,6 +37,7 @@ const CheckoutForm = () => {
     setTimeout(async () => {
       await getPrice();
     }, 8000);
+  // eslint-disable-next-line
   }, [actualizado]);
 
   return (

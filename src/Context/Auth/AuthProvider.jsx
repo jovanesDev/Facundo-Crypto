@@ -8,11 +8,10 @@ import {
   updateProfile,
   updatePassword,
   updateEmail,
-  
 } from "firebase/auth";
-import {collection, setDoc, addDoc, doc} from 'firebase/firestore'
+import { collection,addDoc} from "firebase/firestore";
 import { GlobalConsumer } from "../User/GlobalProvider";
-import {checkfilledIsEmpty} from '../../helper';
+import { checkfilledIsEmpty } from "../../helper";
 
 const Auth = createContext();
 export const AuthConsumer = () => useContext(Auth);
@@ -28,21 +27,26 @@ const AuthContext = ({ children }) => {
   }, [user]);
 
   const userRegister = async ({ name, lastName, email, password }) => {
-    
     showSpinner();
     try {
-      const registerUser = await createUserWithEmailAndPassword(auth, email, password);
-      await updateProfile(registerUser.user, { displayName: `${name} ${lastName}` });
+      const registerUser = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      await updateProfile(registerUser.user, {
+        displayName: `${name} ${lastName}`,
+      });
       setUser(registerUser.user);
       let wall = {
         Ada: 0,
         Btc: 0,
         Etc: 0,
-        id: registerUser.user.uid
-      }
+        id: registerUser.user.uid,
+      };
 
-      await addDoc(collection(db, 'wallets'), wall);
-     
+      await addDoc(collection(db, "wallets"), wall);
+
       hideSpinner();
     } catch (error) {
       console.log(error);
@@ -51,11 +55,11 @@ const AuthContext = ({ children }) => {
   };
 
   const loginUser = async ({ email, password }) => {
-    console.log(email, password)
+    console.log(email, password);
     showSpinner();
     try {
-      const userloged =  await signInWithEmailAndPassword(auth, email, password);
-      console.log(userloged)
+      const userloged = await signInWithEmailAndPassword(auth, email, password);
+      console.log(userloged);
       setUser(userloged);
       hideSpinner();
       // console.log('debe pasar por aca')
@@ -65,24 +69,21 @@ const AuthContext = ({ children }) => {
     }
   };
 
-  const updateUser = async( data ) => {
-    const {name,lastName, email, password} = data;
-      showSpinner();
+  const updateUser = async (data) => {
+    const { name, lastName, email, password } = data;
+    showSpinner();
 
-      try {
-        await updateEmail(user, email);
-        await updateProfile(user, { displayName: `${name} ${lastName}`});
-        if(!checkfilledIsEmpty(password)){
-          await updatePassword(user, password);
-          
-        }
-        
-        // setUser();
-        hideSpinner()
-      } catch (error) {
-        hideSpinner();
+    try {
+      await updateEmail(user, email);
+      await updateProfile(user, { displayName: `${name} ${lastName}` });
+      if (!checkfilledIsEmpty(password)) {
+        await updatePassword(user, password);
       }
-  }
+      hideSpinner();
+    } catch (error) {
+      hideSpinner();
+    }
+  };
 
   const logout = async () => {
     try {
@@ -92,7 +93,9 @@ const AuthContext = ({ children }) => {
     }
   };
   return (
-    <Auth.Provider value={{ userRegister, loginUser, logout, updateUser , user }}>
+    <Auth.Provider
+      value={{ userRegister, loginUser, logout, updateUser, user }}
+    >
       {children}
     </Auth.Provider>
   );

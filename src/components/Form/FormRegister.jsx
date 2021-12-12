@@ -21,6 +21,7 @@ const FormRegister = () => {
     if (user) {
       navigate("/home");
     }
+    // eslint-disable-next-line
   }, [user]);
 
   const registerUser = (data) => {
@@ -31,7 +32,7 @@ const FormRegister = () => {
   return (
     <form className="my-5 w-50 mx-auto" onSubmit={handleSubmit(registerUser)}>
       <div className="form-group">
-        <label for="exampleInputEmail1">Name</label>
+        <label htmlFor="exampleInputEmail1">Name</label>
         <input
           type="name"
           className={`form-control ${errors.name && "is-invalid"}`}
@@ -46,7 +47,7 @@ const FormRegister = () => {
         )}
       </div>
       <div className="form-group mt-3">
-        <label for="exampleInputEmail1">Last Name</label>
+        <label htmlFor="exampleInputEmail1">Last Name</label>
         <input
           type="lastName"
           className={`form-control ${errors.lastName && "is-invalid"}`}
@@ -61,7 +62,7 @@ const FormRegister = () => {
         )}
       </div>
       <div className="form-group mt-3">
-        <label for="exampleInputEmail1">Email address</label>
+        <label htmlFor="exampleInputEmail1">Email address</label>
         <input
           type="email"
           className={`form-control ${errors.email && "is-invalid"}`}
@@ -76,7 +77,7 @@ const FormRegister = () => {
         )}
       </div>
       <div className="form-group mt-3">
-        <label for="exampleInputPassword1">Password</label>
+        <label htmlFor="exampleInputPassword1">Password</label>
         <input
           type="password"
           className={`form-control ${errors.password && "is-invalid"}`}
@@ -90,7 +91,7 @@ const FormRegister = () => {
         )}
       </div>
       <div className="form-group mt-3">
-        <label for="exampleInputPassword1"> Repeat Password</label>
+        <label htmlFor="exampleInputPassword1"> Repeat Password</label>
         <input
           type="password"
           className={`form-control ${errors.repeatPass && "is-invalid"}`}

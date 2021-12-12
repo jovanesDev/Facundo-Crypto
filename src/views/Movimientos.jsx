@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MovimientosItem from "../components/MovimientosItems/MovimientosItem";
 
 import { UserConsumer } from "../Context/User/UserProvider";
 
 const Movimientos = () => {
-  const { movimientos } = UserConsumer();
+  const {wallet,movimientos,getMovimientos} = UserConsumer();
+
+  useEffect(() => {
+    getMovimientos()
+  // eslint-disable-next-line
+  },[wallet])
   
   return (
     <div>
@@ -20,6 +25,9 @@ const Movimientos = () => {
             </th>
             <th scope="col" className="text-center">
               Transaction Type
+            </th>
+            <th scope="col" className="text-center">
+             Quantity
             </th>
             <th scope="col" className="text-center">
               Asset type

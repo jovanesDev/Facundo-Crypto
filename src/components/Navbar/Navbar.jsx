@@ -24,19 +24,19 @@ const Navbar = () => {
           </NavLink>
           <Bars />
           <NavMenu>
-            <NavLink to="/mercado" activeStyle>
+            <NavLink to="/mercado">
               Market
             </NavLink>
             {user ? (
               <>
-                <NavLink to="/home" activeStyle>
+                <NavLink to="/home">
                   Home
                 </NavLink>
 
-                <NavLink to="/movimientos" activeStyle>
+                <NavLink to="/movimientos">
                   Movements
                 </NavLink>
-                <NavLink to="/user" activeStyle>
+                <NavLink to="/user">
                   User
                 </NavLink>
                 <button className="btn_logout" onClick={logout}>
@@ -45,7 +45,7 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <NavLink to="/login" activeStyle>
+                <NavLink to="/login">
                   Sign Up
                 </NavLink>
                 <NavBtn>

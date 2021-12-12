@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { AuthConsumer } from "../Context/Auth/AuthProvider";
-import { checkfilledIsEmpty, existUser, userName } from "../helper";
+import { existUser, userName } from "../helper";
 
 
 const Profile = () => {
@@ -10,8 +10,6 @@ const Profile = () => {
   const {
     register,
     handleSubmit,
-    watch,
-    reset,
     formState: { errors },
   } = useForm({
     mode: "onBlur",
@@ -20,7 +18,7 @@ const Profile = () => {
 
   const handleUpdateSubmit = ( data ) =>{
     updateUser(data);
-    // console.log(checkfilledIsEmpty(password) ? 'No se va a cambiar el password ' : 'Si se va a cambiar');
+
   }
   return (
     <form className="my-5 w-50 mx-auto" onSubmit={handleSubmit(handleUpdateSubmit)}>
